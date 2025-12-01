@@ -19,21 +19,26 @@ class Ship:
         self.rect = self.image.get_rect()
 
         #Start each new ship at the center of the left side of the screen.
-        self.rect.midleft = self.screen_rect.midleft
+        self.rect.midbottom = self.screen_rect.midbottom
         
 
         #Store a float for the ship's exact horizontal position.
-        self.y = float(self.rect.y)
+        self.x = float(self.rect.x)
     def update(self):
         """Update the ship's position based on the movement flag"""
         if self.moving_left:
-            self.y += self.settings.ship_speed
+            self.x -= self.settings.ship_speed
         if self.moving_right:
-            self.y -= self.settings.ship_speed
+            self.x += self.settings.ship_speed
         
-        #Update rect object from self.y.
-        self.rect.y = self.y    
+        #Update rect object from self.x.
+        self.rect.x = self.x    
 
     def blitme(self):
         """Draw the ship at its current location."""
         self.screen.blit(self.image, self.rect)
+
+    def center_ship(self):
+        """center the ship on the screen"""
+        self.rect.midbottom = self.screen_rect.midbottom
+        self.x = float(self.rect.x)
